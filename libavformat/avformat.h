@@ -1886,6 +1886,22 @@ typedef struct AVFormatContext {
      * - decoding: set by user through AVOptions (NO direct access)
      */
     char *protocol_blacklist;
+
+	/**
+	* Set by the user to use some RTCP QoS info from Receiver Report.
+	* Called by ff_rtp_check_and_send_back_rr
+	* Params are:
+	* - receiver_report_parameter (see below)
+	* - expected_interval
+	* - received_interval
+	* - jitter
+	*/
+	void(*receiver_report_callback)(void*, uint32_t, uint32_t, uint32_t);
+	/**
+	The first parameter in receiver_report_callback
+	Can be set by the user to, for example, identify the video calling the RR
+	*/
+	void* receiver_report_parameter;
 } AVFormatContext;
 
 int av_format_get_probe_score(const AVFormatContext *s);
