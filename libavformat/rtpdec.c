@@ -329,7 +329,7 @@ int ff_rtp_check_and_send_back_rr(RTPDemuxContext *s, URLContext *fd,
 
 	if (s->ic->receiver_report_callback)
 	{
-		s->ic->receiver_report_callback(s->ic->receiver_report_parameter, expected_interval, received_interval, stats->jitter);
+		s->ic->receiver_report_callback(s->ic->receiver_report_parameter, expected_interval, received_interval, stats->jitter >> 4);
 	}
 
     avio_wb32(pb, fraction); /* 8 bits of fraction, 24 bits of total packets lost */
